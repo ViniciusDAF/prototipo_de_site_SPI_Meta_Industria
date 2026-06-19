@@ -22,6 +22,7 @@ export type Operario = {
   setor_id: string | null;
   ativo: boolean;
   foto_url: string | null;
+  observacoes: string | null;
   created_at: string;
   setor?: Setor;
 };
@@ -34,6 +35,8 @@ export type Maquina = {
   setor_id: string | null;
   status: string;
   ultima_manutencao: string | null;
+  localizacao: string | null;
+  data_aquisicao: string | null;
   created_at: string;
   setor?: Setor;
 };

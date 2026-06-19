@@ -4,6 +4,8 @@ import Dashboard from './components/Dashboard';
 import OperariosList from './components/OperariosList';
 import MaquinasList from './components/MaquinasList';
 import IncidentesPanel from './components/IncidentesPanel';
+import EpiMonitor from './components/EpiMonitor';
+import MapaFabrica from './components/MapaFabrica';
 import { supabase, type Setor, type Operario, type Maquina, type EpiUso, type Incidente, type EpiTipo } from './lib/supabase';
 
 export default function App() {
@@ -95,15 +97,15 @@ export default function App() {
         )}
         
         {activeTab === 'operarios' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <OperariosList operarios={operarios} setores={setores} />
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            <OperariosList operarios={operarios} setores={setores} epiUso={epiUso} epiTipos={epiTipos} onRefresh={fetchData} />
             <EpiMonitor operarios={operarios} epiUso={epiUso} epiTipos={epiTipos} />
           </div>
         )}
         
         {activeTab === 'maquinas' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <MaquinasList maquinas={maquinas} setores={setores} />
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            <MaquinasList maquinas={maquinas} setores={setores} onRefresh={fetchData} />
             <MapaFabrica
               setores={setores}
               maquinas={maquinas}
@@ -117,7 +119,9 @@ export default function App() {
         {activeTab === 'incidentes' && (
           <IncidentesPanel
             incidentes={incidentes}
-            onResolver={handleResolverIncidente}
+            setores={setores}
+            operarios={operarios}
+            onRefresh={fetchData}
           />
         )}
       </main>
